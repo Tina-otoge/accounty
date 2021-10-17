@@ -61,3 +61,7 @@ class Consumer(db.Base):
             years -= 1
             months += 12
         return f'Missing {years} years and {months} months to cover until {today}'
+
+    def get_payments_desc(self):
+        from .payment import Payment
+        return db.session.query(Payment).filter_by(consumer=self).order_by(Payment.date.desc()).all()

@@ -19,7 +19,7 @@ def count_months(start: date, end=None):
 @app.route('/')
 def index():
     from .models import Consumer, Payment
-    consumers = db.session.query(Consumer).all()
+    consumers = db.session.query(Consumer).order_by(Consumer.stop_date, Consumer.name)
     start = Payment.get_start()
     months = count_months(start)
     sep = '\n' + '=' * 10 + '\n'
@@ -35,7 +35,7 @@ def get_report(name):
     consumer = db.session.get(Consumer, name)
     res = str(consumer)
     res += '\n' + consumer.get_missing_string()
-    res += '\n\n' + '\n'.join(map(str, reversed(consumer.payments)))
+    res += '\n\n' + '\n'.join(map(str, consumer.get_payments_desc()))
     return res
 
 @app.route('/<name>')
