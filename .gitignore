@@ -1,0 +1,7 @@
+/.venv/
+/.vim/
+__pycache__/
+*.db
+/logs
+/imports
+/config.py

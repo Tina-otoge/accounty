@@ -1,0 +1,4 @@
+alembic
+flask
+requests
+sqlalchemy
